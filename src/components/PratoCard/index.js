@@ -1,4 +1,3 @@
-// src/components/PratoCard/index.js
 import styled from 'styled-components'
 
 const Card = styled.div`

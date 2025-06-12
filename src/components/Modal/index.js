@@ -25,45 +25,38 @@ const Modal = ({ prato, onClose }) => {
 
   if (!prato) return null
 
-const handleAddToCart = (e) => {
-  e.preventDefault()
+  const handleAddToCart = (e) => {
+    e.preventDefault()
 
-  dispatch(
-    adicionar({
-      id: prato.id,
-      nome: prato.nome,
-      foto: prato.imagem,
-      preco: 40
-    })
-  )
-
-  
-}
-
-
+    dispatch(
+      adicionar({
+        id: prato.id,
+        nome: prato.nome,
+        foto: prato.foto, 
+        preco: prato.preco 
+      })
+    )
+  }
 
   return (
     <Overlay>
       <ModalContainer>
         <CloseButton onClick={onClose}>×</CloseButton>
-        <Imagem src={prato.imagem} alt={prato.nome} />
+        <Imagem src={prato.foto} alt={prato.nome} /> {}
         <Titulo>{prato.nome}</Titulo>
         <Descricao>{prato.descricao}</Descricao>
         <h4>Ingredientes</h4>
         <Ingredientes>
-          <li>Tomate</li>
-          <li>Muçarela</li>
-          <li>Manjericão</li>
+          {prato.ingredientes?.map((ing, index) => (
+            <li key={index}>{ing}</li>
+          ))}
         </Ingredientes>
         <BotaoAdicionar type="button" onClick={handleAddToCart}>
-        Adicionar ao carrinho — R$ 40,00
+          Adicionar ao carrinho — R$ {Number(prato.preco).toFixed(2).replace('.', ',')}
         </BotaoAdicionar>
-
-
       </ModalContainer>
     </Overlay>
   )
 }
 
 export default Modal
-

@@ -1,4 +1,3 @@
-
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -16,8 +15,10 @@ export const Titulo = styled.h2`
 
 export const ListaPratos = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(304px, 1fr));
+  gap: 32px;
+  list-style: none;
+  padding: 0;
 `
 
 export const Card = styled.li`
@@ -27,31 +28,37 @@ export const Card = styled.li`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
 `
 
 export const Imagem = styled.img`
   width: 100%;
-  height: 160px;
+  height: 200px;
   object-fit: cover;
+  display: block;
 `
 
 export const Conteudo = styled.div`
   padding: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   flex-grow: 1;
 `
 
 export const Nome = styled.h3`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
-  margin: 0 0 8px 0;
+  margin: 0 0 8px;
 `
 
 export const Descricao = styled.p`
   font-size: 14px;
   color: #666;
+  flex-grow: 1;
   margin-bottom: 16px;
 `
 
@@ -60,8 +67,9 @@ export const Botao = styled.button`
   color: #fff;
   border: none;
   padding: 12px;
-  border-radius: 4px;
+  border-radius: 8px;
   font-weight: bold;
+  font-size: 14px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
@@ -69,6 +77,8 @@ export const Botao = styled.button`
     background-color: #cf5a5a;
   }
 `
+
+
 
 export const ModalOverlay = styled.div`
   position: fixed;

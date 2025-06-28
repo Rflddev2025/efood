@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Container, Lista, Item } from './styles'
+import { Background, Container, Grid } from './styles'
+import RestaurantCard from '../../components/RestaurantCard'
 
 function Home() {
   const [restaurantes, setRestaurantes] = useState([])
@@ -17,20 +17,27 @@ function Home() {
   }, [])
 
   return (
-    <Container>
-      <h1>Restaurantes</h1>
-      <Lista>
-        {restaurantes.map((restaurante) => (
-          <Item key={restaurante.id}>
-            <img src={restaurante.capa} alt={restaurante.titulo} />
-            <h2>{restaurante.titulo}</h2>
-            <p>{restaurante.tipo}</p>
-            <Link to={`/perfil/${restaurante.id}`}>Saiba mais</Link>
-          </Item>
-        ))}
-      </Lista>
-    </Container>
+    <Background>
+      <Container>
+        <Grid>
+          {restaurantes.map((restaurante) => (
+            <RestaurantCard
+              key={restaurante.id}
+              restaurante={{
+                id: restaurante.id,
+                foto: restaurante.capa,
+                nome: restaurante.titulo,
+                tipo: restaurante.tipo,
+                descricao: restaurante.descricao,
+                avaliacao: restaurante.avaliacao
+              }}
+            />
+          ))}
+        </Grid>
+      </Container>
+    </Background>
   )
 }
 
 export default Home
+

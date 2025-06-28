@@ -1,19 +1,16 @@
 import styled from 'styled-components'
 
 export const HeaderBar = styled.header`
-  background-color: #e66767;
-  color: #fff;
+  background-color: #FFEBD9;
   text-align: center;
-  padding: 24px 0;
-
-  p {
-    margin-top: 8px;
-    font-size: 16px;
-  }
+  padding: 64px 0 40px;
 `
 
-export const Title = styled.h1`
-  font-size: 36px;
+export const Subtitulo = styled.p`
+  font-size: 18px;
   font-weight: bold;
+  color: #E66767;
+  margin-top: 24px;
+  line-height: 1.4;
   font-family: 'Roboto', sans-serif;
 `

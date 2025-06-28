@@ -1,6 +1,4 @@
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { adicionar } from '../../store/reducers/cart'
 import {
   Overlay,
   ModalContainer,
@@ -9,12 +7,11 @@ import {
   Titulo,
   Descricao,
   Ingredientes,
-  BotaoAdicionar
+  BotaoAdicionar,
+  Conteudo
 } from './styles'
 
-const Modal = ({ prato, onClose }) => {
-  const dispatch = useDispatch()
-
+const Modal = ({ prato, onClose, onAdd }) => {
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === 'Escape') onClose()
@@ -25,38 +22,32 @@ const Modal = ({ prato, onClose }) => {
 
   if (!prato) return null
 
-  const handleAddToCart = (e) => {
-    e.preventDefault()
-
-    dispatch(
-      adicionar({
-        id: prato.id,
-        nome: prato.nome,
-        foto: prato.foto, 
-        preco: prato.preco 
-      })
-    )
-  }
-
   return (
     <Overlay>
       <ModalContainer>
         <CloseButton onClick={onClose}>×</CloseButton>
-        <Imagem src={prato.foto} alt={prato.nome} /> {}
-        <Titulo>{prato.nome}</Titulo>
-        <Descricao>{prato.descricao}</Descricao>
-        <h4>Ingredientes</h4>
-        <Ingredientes>
-          {prato.ingredientes?.map((ing, index) => (
-            <li key={index}>{ing}</li>
-          ))}
-        </Ingredientes>
-        <BotaoAdicionar type="button" onClick={handleAddToCart}>
-          Adicionar ao carrinho — R$ {Number(prato.preco).toFixed(2).replace('.', ',')}
-        </BotaoAdicionar>
+        <Imagem src={prato.foto} alt={prato.nome} />
+
+        <Conteudo>
+          <Titulo>{prato.nome}</Titulo>
+          <Descricao>{prato.descricao}</Descricao>
+
+          <h4>Ingredientes</h4>
+          <Ingredientes>
+            {prato.ingredientes?.map((ing, index) => (
+              <li key={index}>{ing}</li>
+            ))}
+          </Ingredientes>
+
+          <BotaoAdicionar type="button" onClick={onAdd}>
+            Adicionar ao carrinho — R$ {Number(prato.preco).toFixed(2).replace('.', ',')}
+          </BotaoAdicionar>
+        </Conteudo>
       </ModalContainer>
     </Overlay>
   )
 }
 
 export default Modal
+
+

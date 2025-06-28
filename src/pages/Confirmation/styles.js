@@ -1,37 +1,50 @@
 import styled from 'styled-components'
 
-export const ConfirmationContainer = styled.div`
-  background-color: #fff;
-  padding: 32px;
-  width: 360px;
+export const Container = styled.div`
+  background-color: #e66767;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  padding: 40px 16px;
+  text-align: center;
+`
+
+export const Box = styled.div`
+  max-width: 320px;
 `
 
 export const Titulo = styled.h2`
-  font-size: 20px;
+  font-size: 24px;
   font-weight: bold;
-  color: #e66767;
+  color: #fff;
+  margin-bottom: 16px;
 `
 
 export const Paragrafo = styled.p`
-  font-size: 14px;
-  color: #333;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 12px;
 `
 
 export const Botao = styled.button`
-  background-color: #e66767;
-  color: #fff;
+  background-color: #fff;
+  color: #e66767;
   font-weight: bold;
+  font-size: 16px;
   border: none;
-  height: 32px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 8px;
   cursor: pointer;
   margin-top: 16px;
-  transition: 0.3s ease;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #cf5a5a;
+    background-color: #f4f4f4;
   }
 `
+
 

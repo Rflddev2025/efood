@@ -1,28 +1,65 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
-  max-width: 1024px;
+export const Banner = styled.div`
   width: 100%;
-  margin: 0 auto;
-  padding: 32px 16px;
+  height: 280px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border: none;
+  margin: 0;
+  padding: 0;
 `
 
-export const Titulo = styled.h2`
+export const OverlayBanner = styled.div`
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 16px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-sizing: border-box;
+`
+
+export const TagBanner = styled.span`
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+`
+
+export const TituloBanner = styled.h1`
   font-size: 32px;
   font-weight: bold;
-  margin-bottom: 24px;
+  color: #fff;
+`
+
+export const Container = styled.div`
+  padding: 32px 40px;
+  width: 100%;
+  background-color: #FFF8F2;
+  min-height: 100vh;
+`
+
+export const Wrapper = styled.div`
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
 `
 
 export const ListaPratos = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(304px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 32px;
   list-style: none;
   padding: 0;
+  margin: 0;
 `
 
 export const Card = styled.li`
-  background-color: #fff;
+  background-color: #FFEBD9;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -39,7 +76,6 @@ export const Imagem = styled.img`
   width: 100%;
   height: 200px;
   object-fit: cover;
-  display: block;
 `
 
 export const Conteudo = styled.div`
@@ -53,11 +89,12 @@ export const Nome = styled.h3`
   font-size: 18px;
   font-weight: bold;
   margin: 0 0 8px;
+  color: #000;
 `
 
 export const Descricao = styled.p`
   font-size: 14px;
-  color: #666;
+  color: #4B4B4B;
   flex-grow: 1;
   margin-bottom: 16px;
 `
@@ -74,40 +111,7 @@ export const Botao = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #cf5a5a;
+    background-color: #cc5555;
   }
 `
 
-
-
-export const ModalOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-`
-
-export const ModalContent = styled.div`
-  background-color: #fff;
-  max-width: 800px;
-  width: 100%;
-  padding: 32px;
-  border-radius: 8px;
-  position: relative;
-`
-
-export const ModalClose = styled.button`
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-`

@@ -1,10 +1,16 @@
-import { HeaderBar, Title } from './styles'
+import { HeaderBar, Subtitulo } from './styles'
+import Logo from '../Logo'
 
 const Header = () => (
   <HeaderBar>
-    <Title>efood</Title>
-    <p>Viva experiências gastronômicas no conforto da sua casa</p>
+    <Logo />
+    <Subtitulo>
+      Viva experiências gastronômicas <br /> no conforto da sua casa
+    </Subtitulo>
   </HeaderBar>
 )
 
 export default Header
+
+
+

@@ -12,10 +12,10 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #FFEBD9; 
 `
 
 const PageContent = styled.div`
-  display: flex;
   flex: 1;
 `
 
@@ -40,5 +40,8 @@ function App() {
 }
 
 export default App
+
+
+
 
 

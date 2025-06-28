@@ -7,7 +7,7 @@ import {
   Descricao,
   Nota,
   Estrela,
-  Botao
+  BotaoLink
 } from './styles'
 
 const RestaurantCard = ({ restaurante }) => {
@@ -22,7 +22,7 @@ const RestaurantCard = ({ restaurante }) => {
           <Nota>
             {restaurante.avaliacao.toFixed(1)} <Estrela>⭐</Estrela>
           </Nota>
-          <Botao>Saiba mais</Botao>
+          <BotaoLink to={`/perfil/${restaurante.id}`}>Saiba mais</BotaoLink>
         </div>
       </Infos>
     </Card>
@@ -30,3 +30,4 @@ const RestaurantCard = ({ restaurante }) => {
 }
 
 export default RestaurantCard
+

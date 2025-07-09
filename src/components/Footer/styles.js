@@ -6,16 +6,21 @@ export const FooterBar = styled.footer`
   padding: 40px 0 32px;
 `
 
-export const Texto = styled.p`
-  font-size: 14px;
+export const LogoFooter = styled.span`
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
   color: #E66767;
-  margin-top: 16px;
-  line-height: 1.4;
+  border: 1px solid #E66767;
+  border-radius: 8px;
+  padding: 6px 16px;
+  background-color: #fff;
   font-family: 'Roboto', sans-serif;
+  text-transform: lowercase;
 `
 
 export const SocialIcons = styled.div`
-  margin-top: 24px;
+  margin: 24px;
   display: flex;
   justify-content: center;
   gap: 24px;
@@ -29,4 +34,12 @@ export const SocialIcons = styled.div`
       color: #c24a4a;
     }
   }
+`
+
+export const Texto = styled.p`
+  font-size: 14px;
+  color: #E66767;
+  line-height: 1.4;
+  font-family: 'Roboto', sans-serif;
+  margin-top: 60px;
 `

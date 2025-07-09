@@ -1,47 +1,58 @@
 import styled from 'styled-components'
 
 const Card = styled.div`
-  border: 1px solid #e66767;
+  border-radius: 8px;
+  background: #e66767;
+  color: white;
   padding: 8px;
-  background: #ffe6e6;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  height: 100%; 
 `
 
 const Imagem = styled.img`
   width: 100%;
   height: 200px;
   object-fit: cover;
+  border-radius: 8px;
 `
 
 const Titulo = styled.h3`
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
   margin: 8px 0;
 `
 
 const Descricao = styled.p`
   font-size: 14px;
-  text-align: center;
-  color: #333;
+  flex: 1; 
+  margin-bottom: 12px;
 `
 
 const Botao = styled.button`
-  margin-top: auto;
-  background: #e66767;
-  color: white;
+  background-color: #ffebd9;
+  color: #e66767;
+  font-weight: bold;
   border: none;
-  padding: 8px 16px;
+  padding: 8px;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #ffe0c1;
+  }
 `
 
-export default function PratoCard({ prato }) {
+export default function PratoCard({ prato, aoClicar }) {
   return (
     <Card>
-      <Imagem src={prato.imagem} alt={prato.nome} />
+      <Imagem src={prato.foto} alt={prato.nome} />
       <Titulo>{prato.nome}</Titulo>
       <Descricao>{prato.descricao}</Descricao>
-      <Botao>Adicionar ao carrinho</Botao>
+      <Botao onClick={() => aoClicar(prato)}>Adicionar ao carrinho</Botao>
     </Card>
   )
 }
+

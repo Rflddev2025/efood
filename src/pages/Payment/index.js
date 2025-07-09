@@ -11,6 +11,7 @@ import {
   Titulo
 } from './styles'
 import { useState } from 'react'
+import MaskedInput from '../../components/MaskedInput'
 
 const Payment = () => {
   const navigate = useNavigate()
@@ -24,6 +25,22 @@ const Payment = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    
+    if (numero.length !== 16) {
+      alert('O número do cartão deve conter 16 dígitos.')
+      return
+    }
+
+    if (codigo.length !== 3) {
+      alert('O código de segurança (CVV) deve conter 3 dígitos.')
+      return
+    }
+
+    if (!nome || !vencimento) {
+      alert('Preencha todos os campos obrigatórios.')
+      return
+    }
 
     dispatch(
       salvarPagamento({
@@ -42,10 +59,41 @@ const Payment = () => {
       <Titulo>Pagamento</Titulo>
 
       <Form onSubmit={handleSubmit}>
-        <Input placeholder="Nome no cartão" required value={nome} onChange={(e) => setNome(e.target.value)} />
-        <Input placeholder="Número do cartão" required value={numero} onChange={(e) => setNumero(e.target.value)} />
-        <Input placeholder="CVV" required value={codigo} onChange={(e) => setCodigo(e.target.value)} />
-        <Input placeholder="Validade" required value={vencimento} onChange={(e) => setVencimento(e.target.value)} />
+        <Input
+          placeholder="Nome no cartão"
+          required
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+        />
+
+        <MaskedInput
+          mask="0000 0000 0000 0000"
+          value={numero}
+          onChange={(e) =>
+            setNumero(e.target.value.replace(/\D/g, '')) 
+          }
+          placeholder="Número do cartão"
+          required
+        />
+
+        <MaskedInput
+          mask="000"
+          value={codigo}
+          onChange={(e) =>
+            setCodigo(e.target.value.replace(/\D/g, ''))
+          }
+          placeholder="CVV"
+          required
+        />
+
+        <MaskedInput
+          mask="00/00"
+          value={vencimento}
+          onChange={(e) => setVencimento(e.target.value)}
+          placeholder="Validade (MM/AA)"
+          required
+        />
+
         <Button type="submit">Finalizar pagamento</Button>
       </Form>
 
@@ -62,7 +110,3 @@ const Payment = () => {
 }
 
 export default Payment
-
-
-
-

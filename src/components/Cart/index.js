@@ -1,20 +1,23 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { removeFromCart } from '../../store/reducers/cart'
+import { removeFromCart, fecharCarrinho } from '../../store/reducers/cart'
 import { Link } from 'react-router-dom'
 import * as S from './styles'
 
-const Cart = ({ onClose }) => {
+const Cart = () => {
   const cart = useSelector((state) => state.cart.items)
+  const visivel = useSelector((state) => state.cart.visivel)
   const dispatch = useDispatch()
 
   const getTotal = () => {
     return cart.reduce((acc, item) => acc + item.preco, 0).toFixed(2)
   }
 
+  if (!visivel) return null
+
   return (
     <S.Overlay>
-      <S.Sidebar style={{ border: '2px solid red' }}>
-        <S.Fechar onClick={onClose}>×</S.Fechar>
+      <S.Sidebar>
+        <S.Fechar onClick={() => dispatch(fecharCarrinho())}>×</S.Fechar>
         <S.Titulo>Carrinho</S.Titulo>
 
         {cart.length === 0 ? (
@@ -49,6 +52,7 @@ const Cart = ({ onClose }) => {
 }
 
 export default Cart
+
 
 
 

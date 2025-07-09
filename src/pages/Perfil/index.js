@@ -1,68 +1,71 @@
 import { useParams } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { getRestaurantePorId } from '../../services/api'
+
 import {
-  Container,
-  ListaPratos,
-  Card,
-  Imagem,
-  Conteudo,
-  Nome,
-  Descricao,
-  Botao,
   Banner,
   OverlayBanner,
   TagBanner,
   TituloBanner,
-  Wrapper
+  Container,
+  Wrapper,
+  ListaPratos,
+  TopoInfo,
+  BaseInfo
 } from './styles'
 
-import Modal from '../../components/Modal'
+import PratoCard from '../../components/PratoCard'
+import ModalProduto from '../../components/ModalProduto'
 import Cart from '../../components/Cart'
-import { useDispatch } from 'react-redux'
 import { adicionar } from '../../store/reducers/cart'
 
 const Perfil = () => {
   const { id } = useParams()
-  const [restaurante, setRestaurante] = useState(null)
-  const [modalAtivo, setModalAtivo] = useState(false)
-  const [cartOpen, setCartOpen] = useState(false)
-  const [pratoSelecionado, setPratoSelecionado] = useState(null)
   const dispatch = useDispatch()
 
+  const [restaurante, setRestaurante] = useState({
+    id: 0,
+    titulo: '',
+    tipo: '',
+    capa: '',
+    cardapio: []
+  })
+
+  const [pratoSelecionado, setPratoSelecionado] = useState(null)
+
   useEffect(() => {
-    fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
-      .then((res) => res.json())
-      .then((data) => setRestaurante(data))
-      .catch(() => setRestaurante(null))
+    getRestaurantePorId(Number(id)).then((res) => {
+      if (res && Array.isArray(res.cardapio)) {
+        setRestaurante(res)
+      } else {
+        setRestaurante({ ...res, cardapio: [] })
+      }
+    })
   }, [id])
 
-  useEffect(() => {
-    document.body.style.overflow = modalAtivo ? 'hidden' : 'auto'
-  }, [modalAtivo])
-
-  const abrirModal = (prato) => {
-    setPratoSelecionado(prato)
-    setModalAtivo(true)
+  const handleAdicionarAoCarrinho = (produto) => {
+    dispatch(
+      adicionar({
+        id: produto.id,
+        nome: produto.nome,
+        foto: produto.foto,
+        preco: produto.preco
+      })
+    )
+    setPratoSelecionado(null) // fecha o modal após adicionar
   }
-
-  const fecharModal = () => {
-    setModalAtivo(false)
-  }
-
-  const adicionarAoCarrinho = (prato) => {
-    dispatch(adicionar(prato))
-    setCartOpen(true)
-    setModalAtivo(false)
-  }
-
-  if (!restaurante) return <p>Carregando...</p>
 
   return (
     <>
       <Banner style={{ backgroundImage: `url(${restaurante.capa})` }}>
         <OverlayBanner>
-          <TagBanner>{restaurante.tipo}</TagBanner>
-          <TituloBanner>{restaurante.titulo}</TituloBanner>
+          <TopoInfo>
+            <TagBanner>{restaurante.tipo}</TagBanner>
+          </TopoInfo>
+          <BaseInfo>
+            <TituloBanner>{restaurante.titulo}</TituloBanner>
+          </BaseInfo>
         </OverlayBanner>
       </Banner>
 
@@ -70,33 +73,30 @@ const Perfil = () => {
         <Wrapper>
           <ListaPratos>
             {restaurante.cardapio.map((prato) => (
-              <Card key={prato.id}>
-                <Imagem src={prato.foto} alt={prato.nome} />
-                <Conteudo>
-                  <Nome>{prato.nome}</Nome>
-                  <Descricao>{prato.descricao}</Descricao>
-                  <Botao onClick={() => abrirModal(prato)}>
-                    Mais detalhes
-                  </Botao>
-                </Conteudo>
-              </Card>
+              <li key={prato.id}>
+                <PratoCard
+                  prato={prato}
+                  aoClicar={() => setPratoSelecionado(prato)}
+                />
+              </li>
             ))}
           </ListaPratos>
         </Wrapper>
       </Container>
 
-      {modalAtivo && pratoSelecionado && (
-        <Modal
-          prato={pratoSelecionado}
-          onClose={fecharModal}
-          onAdd={() => adicionarAoCarrinho(pratoSelecionado)}
+      {pratoSelecionado && (
+        <ModalProduto
+          produto={pratoSelecionado}
+          onClose={() => setPratoSelecionado(null)}
+          onAdd={() => handleAdicionarAoCarrinho(pratoSelecionado)}
         />
       )}
 
-      {cartOpen && <Cart onClose={() => setCartOpen(false)} />}
+      <Cart />
     </>
   )
 }
 
 export default Perfil
+
 

@@ -14,6 +14,18 @@ const Confirmation = () => {
 
   useEffect(() => {
     const enviarPedido = async () => {
+      
+      if (
+        !cart?.entrega?.nome ||
+        !cart?.entrega?.endereco ||
+        !cart?.pagamento?.numero ||
+        cart.items.length === 0
+      ) {
+        console.error('Dados incompletos para envio do pedido:', cart)
+        setErro(true)
+        return
+      }
+
       const dadosPedido = {
         produtos: cart.items.map((item) => ({
           id: item.id,
@@ -24,13 +36,13 @@ const Confirmation = () => {
           endereco: {
             descricao: cart.entrega.endereco,
             cidade: cart.entrega.cidade,
-            cep: cart.entrega.cep,
+            cep: cart.entrega.cep.replace(/\D/g, ''),
             numero: cart.entrega.numero,
-            complemento: cart.entrega.complemento
+            complemento: cart.entrega.complemento || ''
           }
         },
         pagamento: {
-          numero: cart.pagamento.numero,
+          numero: cart.pagamento.numero.replace(/\s/g, ''),
           nome: cart.pagamento.nome,
           vencimento: cart.pagamento.vencimento,
           codigo: cart.pagamento.codigo
@@ -46,11 +58,15 @@ const Confirmation = () => {
           body: JSON.stringify(dadosPedido)
         })
 
+        const dadosResposta = await resposta.json()
+        console.log('Resposta da API:', dadosResposta)
+
         if (resposta.ok) {
           setCarregando(false)
           dispatch(limparCarrinho())
         } else {
-          throw new Error('Erro na resposta da API')
+          console.error('Erro da API:', dadosResposta)
+          setErro(true)
         }
       } catch (erro) {
         console.error('Erro ao confirmar pedido:', erro)
@@ -92,24 +108,18 @@ const Confirmation = () => {
     <CheckoutSidebar>
       <Box>
         <Titulo>Pedido realizado!</Titulo>
-        <Paragrafo>
-          Pedido enviado para entrega no endereço:
-        </Paragrafo>
+        <Paragrafo>Pedido enviado para entrega no endereço:</Paragrafo>
         <Paragrafo>
           {cart.entrega.endereco}, nº {cart.entrega.numero} – {cart.entrega.cidade} / {cart.entrega.cep}
         </Paragrafo>
         {cart.entrega.complemento && (
           <Paragrafo>Complemento: {cart.entrega.complemento}</Paragrafo>
         )}
+        <Paragrafo>Recebedor: {cart.entrega.nome}</Paragrafo>
         <Paragrafo>
-          Recebedor: {cart.entrega.nome}
+          Pagamento via cartão final {cart.pagamento.numero?.replace(/\s/g, '').slice(-4)}
         </Paragrafo>
-        <Paragrafo>
-          Pagamento via cartão final {cart.pagamento.numero?.slice(-4)}
-        </Paragrafo>
-        <Paragrafo>
-          Em breve você receberá a confirmação no seu e-mail.
-        </Paragrafo>
+        <Paragrafo>Em breve você receberá a confirmação no seu e-mail.</Paragrafo>
         <Botao onClick={handleBackToHome}>Voltar para a Home</Botao>
       </Box>
     </CheckoutSidebar>
@@ -117,5 +127,4 @@ const Confirmation = () => {
 }
 
 export default Confirmation
-
 

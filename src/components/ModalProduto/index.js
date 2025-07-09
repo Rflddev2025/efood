@@ -1,13 +1,17 @@
-import { useDispatch } from 'react-redux'
-import { adicionarAoCarrinho } from '../../store/reducers/cart'
-import { Modal, Overlay, Conteudo, Imagem, Titulo, Descricao, Botao } from './styles'
+import {
+  Modal,
+  Overlay,
+  Conteudo,
+  Imagem,
+  Titulo,
+  Descricao,
+  Botao
+} from './styles'
 
-const ModalProduto = ({ produto, onClose }) => {
-  const dispatch = useDispatch()
-
+const ModalProduto = ({ produto, onClose, onAdd }) => {
   const handleAdd = () => {
-    dispatch(adicionarAoCarrinho(produto))
-    onClose()
+    onAdd()      
+    onClose()    
   }
 
   return (
@@ -17,7 +21,9 @@ const ModalProduto = ({ produto, onClose }) => {
         <Conteudo>
           <Titulo>{produto.nome}</Titulo>
           <Descricao>{produto.descricao}</Descricao>
-          <Botao onClick={handleAdd}>Adicionar ao carrinho</Botao>
+          <Botao onClick={handleAdd}>
+            Adicionar ao carrinho — R$ {Number(produto.preco).toFixed(2).replace('.', ',')}
+          </Botao>
         </Conteudo>
       </Modal>
     </Overlay>
@@ -25,3 +31,5 @@ const ModalProduto = ({ produto, onClose }) => {
 }
 
 export default ModalProduto
+
+

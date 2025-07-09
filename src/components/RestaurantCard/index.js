@@ -1,33 +1,41 @@
+import { Link } from 'react-router-dom'
 import {
   Card,
-  Img,
-  Infos,
-  Tag,
+  Imagem,
+  Conteudo,
+  TituloArea,
   Titulo,
-  Descricao,
   Nota,
-  Estrela,
-  BotaoLink
+  Descricao,
+  Botao,
+  Tag
 } from './styles'
 
 const RestaurantCard = ({ restaurante }) => {
   return (
     <Card>
-      <Img src={restaurante.foto} alt={restaurante.nome} />
-      <Tag>{restaurante.tipo}</Tag>
-      <Infos>
-        <Titulo>{restaurante.nome}</Titulo>
-        <Descricao>{restaurante.descricao}</Descricao>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Imagem style={{ backgroundImage: `url(${restaurante.foto})` }}>
+        <Tag>{restaurante.tipo}</Tag>
+      </Imagem>
+
+      <Conteudo>
+        <TituloArea>
+          <Titulo>{restaurante.nome}</Titulo>
           <Nota>
-            {restaurante.avaliacao.toFixed(1)} <Estrela>⭐</Estrela>
+            {restaurante.avaliacao.toFixed(1)} <span>⭐</span>
           </Nota>
-          <BotaoLink to={`/perfil/${restaurante.id}`}>Saiba mais</BotaoLink>
-        </div>
-      </Infos>
+        </TituloArea>
+
+        <Descricao>{restaurante.descricao}</Descricao>
+
+        <Link to={`/perfil/${restaurante.id}`}>
+          <Botao>Saiba mais</Botao>
+        </Link>
+      </Conteudo>
     </Card>
   )
 }
 
 export default RestaurantCard
+
 

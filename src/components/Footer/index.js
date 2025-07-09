@@ -4,7 +4,7 @@ import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa'
 
 const Footer = () => (
   <FooterBar>
-    <Logo />
+    <Logo small />
     <SocialIcons>
       <a href="https://instagram.com" target="_blank" rel="noreferrer">
         <FaInstagram />
@@ -17,10 +17,11 @@ const Footer = () => (
       </a>
     </SocialIcons>
     <Texto>
-      Rua Acácias, 78 - React City - MG <br />
-      Desenvolvido por Rodrigo Francis
+      A efood é uma plataforma para divulgação de estabelecimentos, a responsabilidade pela entrega, qualidade<br />
+      dos produtos é toda do estabelecimento contratado.
     </Texto>
   </FooterBar>
 )
 
 export default Footer
+

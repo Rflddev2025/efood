@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   items: [],
+  visivel: false,
   entrega: {
     nome: '',
     endereco: '',
@@ -29,6 +30,8 @@ const cartSlice = createSlice({
       if (!itemExistente) {
         state.items.push({ id, nome, foto, preco })
       }
+
+      state.visivel = true
     },
 
     removeFromCart: (state, action) => {
@@ -37,6 +40,7 @@ const cartSlice = createSlice({
 
     limparCarrinho: (state) => {
       state.items = []
+      state.visivel = false
       state.entrega = {
         nome: '',
         endereco: '',
@@ -59,6 +63,14 @@ const cartSlice = createSlice({
 
     salvarPagamento: (state, action) => {
       state.pagamento = action.payload
+    },
+
+    mostrarCarrinho: (state) => {
+      state.visivel = true
+    },
+
+    fecharCarrinho: (state) => {
+      state.visivel = false
     }
   }
 })
@@ -68,7 +80,10 @@ export const {
   removeFromCart,
   limparCarrinho,
   salvarEntrega,
-  salvarPagamento
+  salvarPagamento,
+  mostrarCarrinho,
+  fecharCarrinho
 } = cartSlice.actions
 
 export default cartSlice.reducer
+

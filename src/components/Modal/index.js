@@ -23,8 +23,8 @@ const Modal = ({ prato, onClose, onAdd }) => {
   if (!prato) return null
 
   return (
-    <Overlay>
-      <ModalContainer>
+    <Overlay onClick={onClose}>
+      <ModalContainer onClick={(e) => e.stopPropagation()}>
         <CloseButton onClick={onClose}>×</CloseButton>
         <Imagem src={prato.foto} alt={prato.nome} />
 

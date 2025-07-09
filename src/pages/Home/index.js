@@ -7,7 +7,12 @@ function Home() {
 
   useEffect(() => {
     fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Erro na resposta da API')
+        }
+        return res.json()
+      })
       .then((data) => {
         setRestaurantes(data)
       })

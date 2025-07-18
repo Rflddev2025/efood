@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Banner = styled.div`
-  height: 384px;
+  height: 280px;
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -38,7 +38,7 @@ export const BaseInfo = styled.div`
 
 export const TagBanner = styled.span`
   color: white;
-  font-size: 26px;
+  font-size: 32px;
   padding: 4px 16px;
   border-radius: 8px;
   text-transform: capitalize;
@@ -46,7 +46,7 @@ export const TagBanner = styled.span`
 
 export const TituloBanner = styled.h1`
   color: white;
-  font-size: 42px;
+  font-size: 32px;
   font-weight: bold;
   margin: 0;
 `

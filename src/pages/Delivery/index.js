@@ -39,7 +39,7 @@ const Delivery = () => {
         endereco,
         cidade,
         cep: cepLimpo,
-        numero: numeroLimpo,
+        numero: Number(numeroLimpo),
         complemento
       })
     )
@@ -81,7 +81,7 @@ const Delivery = () => {
         />
 
         <MaskedInput
-          mask="000000" 
+          mask="000000"
           value={numero}
           onChange={(e) => setNumero(e.target.value)}
           placeholder="Número"

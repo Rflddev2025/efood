@@ -18,7 +18,7 @@ export const TextoArea = styled.div`
 
 export const Texto = styled.p`
   color: #e66767;
-  font-size: 24px;
+  font-size: 36px;
   font-weight: bold;
   line-height: 1.4;
 `

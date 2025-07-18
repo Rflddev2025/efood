@@ -2,44 +2,38 @@ import styled from 'styled-components'
 
 export const Container = styled.header`
   background-color: #ffebd9;
-  padding: 0 16px;
-  height: 120px; /* aumentamos a altura conforme Figma */
-  display: flex;
-  align-items: center;
+  padding: 24px 0;
+  position: relative;
 `
 
 export const Wrapper = styled.div`
   max-width: 1024px;
-  width: 100%;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 16px;
 `
 
 export const LogoContainer = styled.div`
   display: flex;
-  justify-content: center;
-  flex: 1;
+  align-items: center;
 `
 
 export const BotaoHeader = styled.button`
   background: none;
   border: none;
+  font-size: 18px;
   color: #e66767;
-  font-weight: bold;
-  font-size: 16px;
   cursor: pointer;
+  font-weight: bold;
 `
 
 export const CarrinhoButton = styled.button`
   background: none;
   border: none;
+  font-size: 18px;
   color: #e66767;
   font-weight: bold;
-  font-size: 16px;
   cursor: pointer;
 `
-
-
-

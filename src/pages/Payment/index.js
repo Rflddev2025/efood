@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { salvarPagamento } from '../../store/reducers/cart'
+import { salvarPagamento, limparCarrinho } from '../../store/reducers/cart'
 import CheckoutSidebar from '../../components/CheckoutSidebar'
 import {
   Form,
@@ -17,16 +17,16 @@ const Payment = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const cart = useSelector((state) => state.cart.items)
+  const entrega = useSelector((state) => state.cart.entrega)
 
   const [nome, setNome] = useState('')
   const [numero, setNumero] = useState('')
   const [codigo, setCodigo] = useState('')
   const [vencimento, setVencimento] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
-    
     if (numero.length !== 16) {
       alert('O número do cartão deve conter 16 dígitos.')
       return
@@ -42,16 +42,59 @@ const Payment = () => {
       return
     }
 
-    dispatch(
-      salvarPagamento({
-        nome,
-        numero,
-        codigo,
-        vencimento
-      })
-    )
+    const [mes, ano] = vencimento.split('/')
 
-    navigate('/confirmacao')
+    const dadosCartao = {
+      card: {
+        name: nome,
+        number: numero,
+        code: Number(codigo),
+        expires: {
+          month: Number(mes),
+          year: Number(`20${ano}`)
+        }
+      }
+    }
+
+    dispatch(salvarPagamento({ nome, numero, codigo, vencimento }))
+
+    const dadosPedido = {
+      products: cart.map((item) => ({
+        id: item.id,
+        price: item.preco
+      })),
+      delivery: {
+        receiver: entrega.nome,
+        address: {
+          description: entrega.endereco,
+          city: entrega.cidade,
+          zipCode: entrega.cep,
+          number: Number(entrega.numero),
+          complement: entrega.complemento
+        }
+      },
+      payment: dadosCartao
+    }
+
+    try {
+      const response = await fetch('https://fake-api-tau.vercel.app/api/efood/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dadosPedido)
+      })
+
+      if (!response.ok) {
+        throw new Error('Erro ao finalizar o pedido.')
+      }
+
+      dispatch(limparCarrinho())
+      navigate('/confirmacao')
+    } catch (error) {
+      alert('Ocorreu um erro ao enviar o pedido. Tente novamente.')
+      console.error(error)
+    }
   }
 
   return (
@@ -67,10 +110,10 @@ const Payment = () => {
         />
 
         <MaskedInput
-          mask="0000 0000 0000 0000"
+          mask="0000000000000000"
           value={numero}
           onChange={(e) =>
-            setNumero(e.target.value.replace(/\D/g, '')) 
+            setNumero(e.target.value.replace(/\D/g, ''))
           }
           placeholder="Número do cartão"
           required

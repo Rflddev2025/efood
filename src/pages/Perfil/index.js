@@ -53,7 +53,7 @@ const Perfil = () => {
         preco: produto.preco
       })
     )
-    setPratoSelecionado(null) // fecha o modal após adicionar
+    setPratoSelecionado(null) 
   }
 
   return (
@@ -98,5 +98,11 @@ const Perfil = () => {
 }
 
 export default Perfil
+
+
+
+
+
+
 
 

@@ -25,6 +25,7 @@ export const Tag = styled.span`
   background-color: #e66767;
   color: #fff;
   font-size: 12px;
+  font-family: 'Times New Roman', serif;
   font-weight: bold;
   padding: 4px 8px;
   border-radius: 4px;
@@ -46,6 +47,7 @@ export const TituloArea = styled.div`
 
 export const Titulo = styled.h2`
   font-size: 18px;
+  font-family: 'Times New Roman', serif;
   font-weight: bold;
   color: #e66767;
   margin: 0;
@@ -61,7 +63,8 @@ export const Nota = styled.span`
 
 export const Descricao = styled.p`
   font-size: 14px;
-  color: #000;
+  font-family: 'Times New Roman', serif;
+  color: #e66767;
   flex: 1;
 `
 
@@ -73,6 +76,7 @@ export const Botao = styled.button`
   padding: 8px 12px;
   border-radius: 4px;
   font-size: 14px;
+  font-family: 'Times New Roman', serif;
   font-weight: bold;
   cursor: pointer;
   align-self: flex-start;

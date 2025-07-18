@@ -12,10 +12,15 @@ const initialState = {
     complemento: ''
   },
   pagamento: {
-    numero: '',
-    nome: '',
-    vencimento: '',
-    codigo: ''
+    card: {
+      number: '',
+      name: '',
+      code: '',
+      expires: {
+        month: '',
+        year: ''
+      }
+    }
   }
 }
 
@@ -50,10 +55,15 @@ const cartSlice = createSlice({
         complemento: ''
       }
       state.pagamento = {
-        numero: '',
-        nome: '',
-        vencimento: '',
-        codigo: ''
+        card: {
+          number: '',
+          name: '',
+          code: '',
+          expires: {
+            month: '',
+            year: ''
+          }
+        }
       }
     },
 
@@ -62,7 +72,21 @@ const cartSlice = createSlice({
     },
 
     salvarPagamento: (state, action) => {
-      state.pagamento = action.payload
+      const { nome, numero, codigo, vencimento } = action.payload
+
+      const [mes, ano] = vencimento.split('/')
+
+      state.pagamento = {
+        card: {
+          name: nome,
+          number: numero,
+          code: Number(codigo),
+          expires: {
+            month: Number(mes),
+            year: Number(`20${ano}`)
+          }
+        }
+      }
     },
 
     mostrarCarrinho: (state) => {
@@ -86,4 +110,3 @@ export const {
 } = cartSlice.actions
 
 export default cartSlice.reducer
-

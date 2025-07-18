@@ -13,6 +13,14 @@ export const Container = styled.div`
   padding: 0 16px;
 `
 
+export const TituloHeader = styled.p`
+  font-size: 36px;
+  font-family: 'Times New Roman', serif;
+  color: #e66767;
+  text-align: center;
+  margin-bottom: 32px;
+`
+
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -22,5 +30,4 @@ export const Grid = styled.div`
     grid-template-columns: 1fr;
   }
 `
-
 

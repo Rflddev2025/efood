@@ -44,39 +44,57 @@ export const Titulo = styled.h2`
   color: #fff;
   font-size: 24px;
   font-weight: bold;
+  font-family: 'Roboto', sans-serif;
 `
 
 export const Item = styled.li`
   display: flex;
-  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffebd9;
+  border-radius: 8px;
+  padding: 8px;
   margin-bottom: 16px;
+`
 
-  img {
-    width: 56px;
-    height: 56px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
+export const Imagem = styled.img`
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+`
 
-  h3 {
-    margin: 0 0 4px;
-    font-size: 14px;
-    color: #fff;
-  }
+export const Info = styled.div`
+  flex: 1;
+  margin-left: 8px;
+  font-family: 'Roboto', sans-serif;
+`
 
-  p {
-    margin: 0 0 4px;
-    font-size: 14px;
-    color: #fff;
-  }
+export const Nome = styled.h3`
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #e66767;
+`
 
-  button {
-    background: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-size: 12px;
-    padding: 0;
+export const Preco = styled.p`
+  margin: 0;
+  font-size: 14px;
+  color: #e66767;
+`
+
+export const Remover = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #e66767;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+
+  &:hover {
+    opacity: 0.8;
   }
 `
 
@@ -86,6 +104,7 @@ export const Total = styled.p`
   margin: 16px 0 0;
   text-align: right;
   color: #fff;
+  font-family: 'Roboto', sans-serif;
 `
 
 export const Botao = styled.button`
@@ -100,6 +119,7 @@ export const Botao = styled.button`
   margin-top: 8px;
   cursor: pointer;
   transition: 0.2s ease;
+  font-family: 'Roboto', sans-serif;
 
   &:hover {
     background-color: #f4f4f4;
@@ -111,4 +131,5 @@ export const Vazio = styled.p`
   font-size: 14px;
   color: #fff;
   margin-top: 32px;
+  font-family: 'Roboto', sans-serif;
 `

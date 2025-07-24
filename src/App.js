@@ -10,6 +10,7 @@ import HeaderPerfil from './components/HeaderPerfil'
 import Footer from './components/Footer'
 
 import styled from 'styled-components'
+import GlobalStyle from './styles/GlobalStyle'
 
 const MainContainer = styled.div`
   display: flex;
@@ -24,12 +25,13 @@ const PageContent = styled.div`
 
 function Layout() {
   const location = useLocation()
-
   const isHome = location.pathname === '/'
   const isPerfil = location.pathname.startsWith('/perfil')
 
   return (
     <MainContainer>
+      <GlobalStyle /> {}
+
       {isHome && <HeaderHome />}
       {isPerfil && <HeaderPerfil />}
       {!isHome && !isPerfil && null}
@@ -58,8 +60,6 @@ function App() {
 }
 
 export default App
-
-
 
 
 

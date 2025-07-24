@@ -7,7 +7,7 @@ const Confirmation = () => {
   const navigate = useNavigate()
   const cart = useSelector((state) => state.cart)
 
-  const handleBackToHome = () => {
+  const handleVoltar = () => {
     navigate('/')
   }
 
@@ -15,9 +15,18 @@ const Confirmation = () => {
     <CheckoutSidebar>
       <Box>
         <Titulo>Pedido realizado!</Titulo>
-        <Paragrafo>Pedido enviado para entrega no endereço:</Paragrafo>
+
         <Paragrafo>
-          {cart.entrega?.endereco}, nº {cart.entrega?.numero} – {cart.entrega?.cidade} / {cart.entrega?.cep}
+          Número do pedido: <strong>{cart.orderId || '---'}</strong>
+        </Paragrafo>
+
+        <Paragrafo>
+          Pedido enviado para entrega no endereço:
+        </Paragrafo>
+
+        <Paragrafo>
+          {cart.entrega?.endereco}, nº {cart.entrega?.numero} –{' '}
+          {cart.entrega?.cidade} / {cart.entrega?.cep}
         </Paragrafo>
 
         {cart.entrega?.complemento && (
@@ -28,17 +37,17 @@ const Confirmation = () => {
 
         <Paragrafo>
           Pagamento via cartão final{' '}
-          {cart.pagamento?.numero?.replace(/\s/g, '').slice(-4)}
+          {cart.pagamento?.card?.number?.slice(-4)}
         </Paragrafo>
 
-        <Paragrafo>Em breve você receberá a confirmação no seu e-mail.</Paragrafo>
+        <Paragrafo>
+          Em breve você receberá a confirmação no seu e-mail.
+        </Paragrafo>
 
-        <Botao onClick={handleBackToHome}>Voltar para a Home</Botao>
+        <Botao onClick={handleVoltar}>Concluir</Botao>
       </Box>
     </CheckoutSidebar>
   )
 }
 
 export default Confirmation
-
-

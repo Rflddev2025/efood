@@ -11,11 +11,37 @@ export const Container = styled.div`
   font-family: 'Roboto', sans-serif;
 `
 
+export const Titulo = styled.h2`
+  font-size: 24px;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 24px;
+  font-family: 'Roboto', sans-serif;
+`
+
 export const Form = styled.form`
-  background-color: #e66767;
-  width: 320px;
+  width: 100%;
+  max-width: 304px;
   display: flex;
   flex-direction: column;
+  gap: 16px;
+`
+
+export const InputGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`
+
+export const Label = styled.label`
+  font-size: 14px;
+  color: #fff;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+`
+
+export const Row = styled.div`
+  display: flex;
   gap: 8px;
 `
 
@@ -27,6 +53,7 @@ export const Input = styled.input`
   padding: 0 8px;
   font-size: 14px;
   border-radius: 4px;
+  font-family: 'Roboto', sans-serif;
 
   &::placeholder {
     color: #a8a8a8;
@@ -42,8 +69,25 @@ export const Button = styled.button`
   font-size: 14px;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 8px;
   transition: background-color 0.3s ease;
+  font-family: 'Roboto', sans-serif;
+
+  &:hover {
+    background-color: #f4f4f4;
+  }
+`
+
+export const VoltarBotao = styled(Button)`
+background-color: #fff;
+  color: #e66767;
+  font-weight: bold;
+  border: none;
+  height: 32px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Roboto', sans-serif;
 
   &:hover {
     background-color: #f4f4f4;
@@ -66,10 +110,4 @@ export const PedidoLista = styled.ul`
     font-size: 14px;
     margin-bottom: 4px;
   }
-`
-export const Titulo = styled.h2`
-  font-size: 24px;
-  color: #fff;
-  font-weight: bold;
-  margin-bottom: 24px;
 `

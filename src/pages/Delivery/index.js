@@ -4,10 +4,15 @@ import { salvarEntrega } from '../../store/reducers/cart'
 import CheckoutSidebar from '../../components/CheckoutSidebar'
 import {
   Form,
+  InputGroup,
+  Label,
   Input,
+  Row,
   Button,
+  VoltarBotao,
   Titulo
 } from './styles'
+
 import { useState } from 'react'
 import MaskedInput from '../../components/MaskedInput'
 
@@ -51,53 +56,77 @@ const Delivery = () => {
     <CheckoutSidebar>
       <Titulo>Entrega</Titulo>
       <Form onSubmit={handleSubmit}>
-        <Input
-          placeholder="Nome completo"
-          required
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-        />
+        <InputGroup>
+          <Label htmlFor="nome">Quem irá receber</Label>
+          <Input
+            id="nome"
+            required
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+          />
+        </InputGroup>
 
-        <Input
-          placeholder="Endereço"
-          required
-          value={endereco}
-          onChange={(e) => setEndereco(e.target.value)}
-        />
+        <InputGroup>
+          <Label htmlFor="endereco">Endereço</Label>
+          <Input
+            id="endereco"
+            required
+            value={endereco}
+            onChange={(e) => setEndereco(e.target.value)}
+          />
+        </InputGroup>
 
-        <Input
-          placeholder="Cidade"
-          required
-          value={cidade}
-          onChange={(e) => setCidade(e.target.value)}
-        />
+        <InputGroup>
+          <Label htmlFor="cidade">Cidade</Label>
+          <Input
+            id="cidade"
+            required
+            value={cidade}
+            onChange={(e) => setCidade(e.target.value)}
+          />
+        </InputGroup>
 
-        <MaskedInput
-          mask="00000-000"
-          value={cep}
-          onChange={(e) => setCep(e.target.value)}
-          placeholder="CEP"
-          required
-        />
+        <Row>
+          <InputGroup style={{ flex: 1 }}>
+            <Label htmlFor="cep">CEP</Label>
+            <MaskedInput
+              id="cep"
+              mask="00000-000"
+              value={cep}
+              onChange={(e) => setCep(e.target.value)}
+              required
+            />
+          </InputGroup>
 
-        <MaskedInput
-          mask="000000"
-          value={numero}
-          onChange={(e) => setNumero(e.target.value)}
-          placeholder="Número"
-          required
-        />
+          <InputGroup style={{ flex: 1, marginLeft: 8 }}>
+            <Label htmlFor="numero">Número</Label>
+            <MaskedInput
+              id="numero"
+              mask="000000"
+              value={numero}
+              onChange={(e) => setNumero(e.target.value)}
+              required
+            />
+          </InputGroup>
+        </Row>
 
-        <Input
-          placeholder="Complemento (opcional)"
-          value={complemento}
-          onChange={(e) => setComplemento(e.target.value)}
-        />
+        <InputGroup>
+          <Label htmlFor="complemento">Complemento (opcional)</Label>
+          <Input
+            id="complemento"
+            value={complemento}
+            onChange={(e) => setComplemento(e.target.value)}
+          />
+        </InputGroup>
 
         <Button type="submit">Continuar com o pagamento</Button>
+        <VoltarBotao type="button" onClick={() => navigate(-1)}>
+          Voltar para o carrinho
+        </VoltarBotao>
       </Form>
     </CheckoutSidebar>
   )
 }
 
 export default Delivery
+

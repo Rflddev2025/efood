@@ -1,9 +1,14 @@
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { salvarPagamento, limparCarrinho } from '../../store/reducers/cart'
+import {
+  salvarPagamento,
+  salvarOrderId
+} from '../../store/reducers/cart'
 import CheckoutSidebar from '../../components/CheckoutSidebar'
 import {
   Form,
+  CampoComLabel,
+  LinhaDupla,
   Input,
   Button,
   PedidoTitulo,
@@ -22,7 +27,8 @@ const Payment = () => {
   const [nome, setNome] = useState('')
   const [numero, setNumero] = useState('')
   const [codigo, setCodigo] = useState('')
-  const [vencimento, setVencimento] = useState('')
+  const [mes, setMes] = useState('')
+  const [ano, setAno] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -37,12 +43,10 @@ const Payment = () => {
       return
     }
 
-    if (!nome || !vencimento) {
+    if (!nome || !mes || !ano) {
       alert('Preencha todos os campos obrigatórios.')
       return
     }
-
-    const [mes, ano] = vencimento.split('/')
 
     const dadosCartao = {
       card: {
@@ -56,7 +60,14 @@ const Payment = () => {
       }
     }
 
-    dispatch(salvarPagamento({ nome, numero, codigo, vencimento }))
+    dispatch(
+      salvarPagamento({
+        nome,
+        numero,
+        codigo,
+        vencimento: `${mes}/${ano}`
+      })
+    )
 
     const dadosPedido = {
       products: cart.map((item) => ({
@@ -77,19 +88,25 @@ const Payment = () => {
     }
 
     try {
-      const response = await fetch('https://fake-api-tau.vercel.app/api/efood/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dadosPedido)
-      })
+      const response = await fetch(
+        'https://fake-api-tau.vercel.app/api/efood/checkout',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dadosPedido)
+        }
+      )
 
       if (!response.ok) {
         throw new Error('Erro ao finalizar o pedido.')
       }
 
-      dispatch(limparCarrinho())
+      const resposta = await response.json()
+
+      dispatch(salvarOrderId(resposta.orderId))
+
       navigate('/confirmacao')
     } catch (error) {
       alert('Ocorreu um erro ao enviar o pedido. Tente novamente.')
@@ -102,49 +119,80 @@ const Payment = () => {
       <Titulo>Pagamento</Titulo>
 
       <Form onSubmit={handleSubmit}>
-        <Input
-          placeholder="Nome no cartão"
-          required
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-        />
+        <CampoComLabel>
+          <label htmlFor="nome">Nome no cartão</label>
+          <Input
+            id="nome"
+            placeholder="Nome no cartão"
+            required
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+          />
+        </CampoComLabel>
 
-        <MaskedInput
-          mask="0000000000000000"
-          value={numero}
-          onChange={(e) =>
-            setNumero(e.target.value.replace(/\D/g, ''))
-          }
-          placeholder="Número do cartão"
-          required
-        />
+        <LinhaDupla>
+          <CampoComLabel>
+            <label htmlFor="numero">Número do cartão</label>
+            <MaskedInput
+              id="numero"
+              mask="0000000000000000"
+              value={numero}
+              onChange={(e) => setNumero(e.target.value.replace(/\D/g, ''))}
+              placeholder="Número"
+              required
+            />
+          </CampoComLabel>
 
-        <MaskedInput
-          mask="000"
-          value={codigo}
-          onChange={(e) =>
-            setCodigo(e.target.value.replace(/\D/g, ''))
-          }
-          placeholder="CVV"
-          required
-        />
+          <CampoComLabel>
+            <label htmlFor="codigo">CVV</label>
+            <MaskedInput
+              id="codigo"
+              mask="000"
+              value={codigo}
+              onChange={(e) => setCodigo(e.target.value.replace(/\D/g, ''))}
+              placeholder="CVV"
+              required
+            />
+          </CampoComLabel>
+        </LinhaDupla>
 
-        <MaskedInput
-          mask="00/00"
-          value={vencimento}
-          onChange={(e) => setVencimento(e.target.value)}
-          placeholder="Validade (MM/AA)"
-          required
-        />
+        <LinhaDupla>
+          <CampoComLabel>
+            <label htmlFor="mes">Mês de vencimento</label>
+            <MaskedInput
+              id="mes"
+              mask="00"
+              value={mes}
+              onChange={(e) => setMes(e.target.value)}
+              placeholder="MM"
+              required
+            />
+          </CampoComLabel>
+
+          <CampoComLabel>
+            <label htmlFor="ano">Ano de vencimento</label>
+            <MaskedInput
+              id="ano"
+              mask="00"
+              value={ano}
+              onChange={(e) => setAno(e.target.value)}
+              placeholder="AA"
+              required
+            />
+          </CampoComLabel>
+        </LinhaDupla>
 
         <Button type="submit">Finalizar pagamento</Button>
+        <Button type="button" onClick={() => navigate('/entrega')}>
+          Voltar para adição de endereço
+        </Button>
       </Form>
 
       <PedidoTitulo>Resumo do pedido</PedidoTitulo>
       <PedidoLista>
         {cart.map((item) => (
           <li key={item.id}>
-            {item.nome} - R$ {item.preco.toFixed(2)}
+            {item.nome} - R$ {item.preco.toFixed(2).replace('.', ',')}
           </li>
         ))}
       </PedidoLista>

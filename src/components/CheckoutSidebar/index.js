@@ -1,10 +1,11 @@
-import { Overlay, SidebarContainer } from './styles'
+import * as S from './styles'
 
-const CheckoutSidebar = ({ children }) => (
-  <Overlay>
-    <SidebarContainer>{children}</SidebarContainer>
-  </Overlay>
-)
+const CheckoutSidebar = ({ children }) => {
+  return (
+    <S.Overlay>
+      <S.SidebarContainer>{children}</S.SidebarContainer>
+    </S.Overlay>
+  )
+}
 
 export default CheckoutSidebar
-

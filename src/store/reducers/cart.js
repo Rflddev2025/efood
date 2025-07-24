@@ -21,7 +21,8 @@ const initialState = {
         year: ''
       }
     }
-  }
+  },
+  orderId: null
 }
 
 const cartSlice = createSlice({
@@ -32,8 +33,10 @@ const cartSlice = createSlice({
       const { id, nome, foto, preco } = action.payload
       const itemExistente = state.items.find((item) => item.id === id)
 
-      if (!itemExistente) {
-        state.items.push({ id, nome, foto, preco })
+      if (itemExistente) {
+        itemExistente.quantidade += 1
+      } else {
+        state.items.push({ id, nome, foto, preco, quantidade: 1 })
       }
 
       state.visivel = true
@@ -73,7 +76,6 @@ const cartSlice = createSlice({
 
     salvarPagamento: (state, action) => {
       const { nome, numero, codigo, vencimento } = action.payload
-
       const [mes, ano] = vencimento.split('/')
 
       state.pagamento = {
@@ -87,6 +89,10 @@ const cartSlice = createSlice({
           }
         }
       }
+    },
+
+    salvarOrderId: (state, action) => {
+      state.orderId = action.payload
     },
 
     mostrarCarrinho: (state) => {
@@ -105,8 +111,12 @@ export const {
   limparCarrinho,
   salvarEntrega,
   salvarPagamento,
+  salvarOrderId,
   mostrarCarrinho,
   fecharCarrinho
 } = cartSlice.actions
 
 export default cartSlice.reducer
+
+
+

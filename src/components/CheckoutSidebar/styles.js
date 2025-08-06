@@ -21,7 +21,6 @@ export const SidebarContainer = styled.aside`
   font-family: 'Roboto', sans-serif;
   color: #fff;
 
-  /* Scrollbar opcional customizada */
   &::-webkit-scrollbar {
     width: 6px;
   }

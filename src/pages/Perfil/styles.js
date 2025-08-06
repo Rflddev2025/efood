@@ -26,7 +26,7 @@ export const TopoInfo = styled.div`
 
 export const BaseInfo = styled.div`
   position: absolute;
-  bottom: 24px;
+  bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
@@ -39,8 +39,8 @@ export const BaseInfo = styled.div`
 export const TagBanner = styled.span`
   color: white;
   font-size: 32px;
-  padding: 4px 16px;
-  border-radius: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
   text-transform: capitalize;
 `
 
@@ -65,7 +65,7 @@ export const Wrapper = styled.div`
 
 export const ListaPratos = styled.ul`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 6fr);
   gap: 32px;
   list-style: none;
   padding: 0;
@@ -76,5 +76,3 @@ export const ListaPratos = styled.ul`
     display: flex;
   }
 `
-
-

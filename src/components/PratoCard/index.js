@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 const Card = styled.div`
-  border-radius: 8px;
   background: #e66767;
   color: white;
   padding: 8px;
@@ -15,7 +14,6 @@ const Imagem = styled.img`
   width: 100%;
   height: 200px;
   object-fit: cover;
-  border-radius: 8px;
 `
 
 const Titulo = styled.h3`
@@ -36,7 +34,6 @@ const Botao = styled.button`
   font-weight: bold;
   border: none;
   padding: 8px;
-  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
 

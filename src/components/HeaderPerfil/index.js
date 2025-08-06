@@ -1,10 +1,22 @@
-import { Container, Wrapper, LogoContainer, BotaoHeader, CarrinhoButton } from './styles'
+import {
+  Container,
+  Wrapper,
+  LogoContainer,
+  BotaoHeader,
+  CarrinhoButton
+} from './styles'
 import { Link } from 'react-router-dom'
 import Logo from '../Logo'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { mostrarCarrinho } from '../../store/reducers/cart'
 
-const HeaderPerfil = ({ onCartClick }) => {
+const HeaderPerfil = () => {
   const cart = useSelector((state) => state.cart.items)
+  const dispatch = useDispatch()
+
+  const handleCartClick = () => {
+    dispatch(mostrarCarrinho()) 
+  }
 
   return (
     <Container>
@@ -17,7 +29,7 @@ const HeaderPerfil = ({ onCartClick }) => {
           <Logo />
         </LogoContainer>
 
-        <CarrinhoButton onClick={onCartClick}>
+        <CarrinhoButton onClick={handleCartClick}>
           {cart.length} produto(s) no carrinho
         </CarrinhoButton>
       </Wrapper>
@@ -26,4 +38,7 @@ const HeaderPerfil = ({ onCartClick }) => {
 }
 
 export default HeaderPerfil
+
+
+
 

@@ -53,7 +53,7 @@ const Perfil = () => {
         preco: produto.preco
       })
     )
-    setPratoSelecionado(null) 
+    setPratoSelecionado(null)
   }
 
   return (
@@ -72,14 +72,18 @@ const Perfil = () => {
       <Container>
         <Wrapper>
           <ListaPratos>
-            {restaurante.cardapio.map((prato) => (
-              <li key={prato.id}>
-                <PratoCard
-                  prato={prato}
-                  aoClicar={() => setPratoSelecionado(prato)}
-                />
-              </li>
-            ))}
+            {restaurante.cardapio.length > 0 ? (
+              restaurante.cardapio.map((prato) => (
+                <li key={prato.id}>
+                  <PratoCard
+                    prato={prato}
+                    aoClicar={() => setPratoSelecionado(prato)}
+                  />
+                </li>
+              ))
+            ) : (
+              <p style={{ color: '#fff' }}>Nenhum prato disponível.</p>
+            )}
           </ListaPratos>
         </Wrapper>
       </Container>
@@ -98,10 +102,6 @@ const Perfil = () => {
 }
 
 export default Perfil
-
-
-
-
 
 
 

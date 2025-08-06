@@ -48,30 +48,34 @@ export const Titulo = styled.h2`
 `
 
 export const Item = styled.li`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   background-color: #ffebd9;
-  border-radius: 8px;
+  border: 1px solid #e66767;
   padding: 8px;
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
   margin-bottom: 16px;
-`
+  position: relative;
 
-export const Imagem = styled.img`
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
+  img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
 `
 
 export const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   flex: 1;
-  margin-left: 8px;
-  font-family: 'Roboto', sans-serif;
+  padding-right: 24px;
 `
 
 export const Nome = styled.h3`
-  margin: 0 0 4px;
+  margin: 0;
   font-size: 16px;
   font-weight: bold;
   color: #e66767;
@@ -80,7 +84,11 @@ export const Nome = styled.h3`
 export const Preco = styled.p`
   margin: 0;
   font-size: 14px;
+  font-weight: normal;
   color: #e66767;
+  position: absolute;
+  left: 96px;
+  top: 50%;
 `
 
 export const Remover = styled.button`
@@ -91,11 +99,9 @@ export const Remover = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.2s;
-
-  &:hover {
-    opacity: 0.8;
-  }
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
 `
 
 export const Total = styled.p`

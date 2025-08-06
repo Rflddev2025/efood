@@ -31,13 +31,20 @@ const Cart = () => {
             <ul>
               {cart.map((item) => (
                 <S.Item key={item.id}>
-                  <S.Imagem src={item.foto} alt={item.nome} />
+                  <img src={item.foto} alt={item.nome} />
                   <S.Info>
-                    <S.Nome>{item.nome}</S.Nome>
-                    <S.Preco>
-                      R$ {(item.preco * item.quantidade).toFixed(2).replace('.', ',')}
-                      {item.quantidade > 1 && ` (${item.quantidade}x)`}
-                    </S.Preco>
+                    <div>
+                      <S.Nome>{item.nome}</S.Nome>
+                    </div>
+                    <div>
+                      <S.Preco>
+                        R${' '}
+                        {(item.preco * item.quantidade)
+                          .toFixed(2)
+                          .replace('.', ',')}
+                        {item.quantidade > 1 && ` (${item.quantidade}x)`}
+                      </S.Preco>
+                    </div>
                   </S.Info>
                   <S.Remover onClick={() => dispatch(removeFromCart(item.id))}>
                     <Trash2 size={18} />
@@ -59,9 +66,6 @@ const Cart = () => {
 }
 
 export default Cart
-
-
-
 
 
 
